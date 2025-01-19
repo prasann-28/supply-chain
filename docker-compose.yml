@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  hardhat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8545:8545"
+    networks:
+      - supply-chain-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - supply-chain-network
+    depends_on:
+      - hardhat
+
+networks:
+  supply-chain-network:
+    driver: bridge
